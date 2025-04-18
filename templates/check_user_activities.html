@@ -1,0 +1,135 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-900 px-5">
+    <!-- Nav Bar-->
+    <div class="flex justify-between w-full text-amber-500 h-20 items-center">
+      <div>
+        <img
+          src="{% static 'images/logo_1.png' %}"
+          alt="Logo"
+          class="w-44 md:w-56"
+        />
+      </div>
+      <div class="flex gap-4 text-sm md:text-lg">
+        <p class="truncate w-20 md:w-32">Hi {{user}}</p>
+        <a href="{% url 'portal:homepage' %}"> <p>Home</p></a>
+        <!-- This log Out button doesnt show on mobile-->
+        <a href="{% url 'portal:logout' %}" class="hidden md:block">
+          <p>Log Out</p></a
+        >
+      </div>
+    </div>
+    <!-- Search Form -->
+    <form
+      action="{% url 'portal:checkuseractivities' %}"
+      enctype="multipart/form-data"
+      method="post"
+    >
+      {% csrf_token %}
+      <div class="h-full mt-5 w-full">
+        <div
+          class="flex flex-wrap gap-2 gap-y-4 sm:gap-4 justify-center w-full"
+        >
+          <div class="flex gap-4 text-amber-500">
+            <label class="">
+              Start Date : <span class="text-red-700 text-xl">*</span>
+            </label>
+
+            <input
+              required
+              name="start_date"
+              type="date"
+              class="px-2 py-1 bg-gray-700 text-center text-white outline outline-amber-500 rounded-lg w-52"
+            />
+          </div>
+          <div class="flex gap-4 text-amber-500">
+            <label class="">
+              End Date : <span class="text-red-700 text-xl">*</span>
+            </label>
+            <input
+              required
+              name="end_date"
+              type="date"
+              class="px-2 py-1 bg-gray-700 text-center text-white outline outline-amber-500 rounded-lg w-52"
+            />
+          </div>
+          <div class="flex gap-4 text-amber-500">
+            <label class="">Reg Number:</label>
+            <input
+              name="registration_number"
+              placeholder="Registration Number"
+              class="px-2 py-1 bg-gray-700 text-center text-white outline outline-amber-500 rounded-lg w-52"
+            />
+          </div>
+        </div>
+        <div class="text-center">
+          <button
+            class="px-2 py-1 mt-3 bg-red-500 text-center text-white rounded-lg"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </form>
+    <!-- Table-->
+    <div class="overflow-x-auto mt-3">
+      <table
+        class="min-w-max w-full border-collapse shadow-lg rounded-t-2xl overflow-hidden"
+      >
+        <!-- Table Header -->
+        <thead class="bg-gray-800 text-white text-sm">
+          <tr class="text-left">
+            <th class="px-4 py-2 w-16 text-center">Picture</th>
+            <th class="px-4 py-2 w-20 text-center">Username</th>
+            <th class="px-4 py-2 w-28 text-center">Device</th>
+            <th class="px-4 py-2 w-28 text-center">IP Address</th>
+            <th class="px-4 py-2 w-44 text-center">Registration Number</th>
+            <th class="px-4 py-2 w-44 text-center">Link Visited</th>
+            <th class="px-4 py-2 w-12 text-center">Date</th>
+          </tr>
+        </thead>
+
+        <!-- Table Body -->
+        <tbody class="divide-y divide-gray-300">
+          {% if Invalid %}
+          <p class="capitalize text-red-500 text-center">{{Invalid }}</p>
+          {% else %} {% for user in userquery %}
+          <tr
+            class="even:bg-gray-800 odd:bg-gray-900 transition text-white text-sm"
+          >
+            <td class="px-4 py-3 text-center">
+              <img
+                src="{{ user.profile.display_pic.url}}"
+                alt="dp"
+                class="w-6 h-6 rounded-full mx-auto"
+              />
+            </td>
+            <td class="px-4 py-3 text-center">{{user}}</td>
+            <td class="px-4 py-3 text-center">{{user.device_used}}</td>
+            <td class="px-4 py-3 text-center">{{user.ip_address_used}}</td>
+            <td class="px-4 py-3 text-center">{{user.profile.RegNo}}</td>
+            <td class="px-4 py-3 text-center">
+              <a
+                target="_blank"
+                href="{{user.website_visited}}"
+                class="text-blue-500 hover:underline block truncate w-44"
+                >{{user.website_visited}}
+              </a>
+            </td>
+            <td class="px-4 py-3 text-center text-sm truncate">
+              {{user.date}}
+            </td>
+          </tr>
+          {% endfor%} {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

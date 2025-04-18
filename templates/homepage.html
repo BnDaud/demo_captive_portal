@@ -1,0 +1,45 @@
+{% extends 'base.html'%} {% load static %} {% block image %}
+<img src="{{userprofile.display_pic.url}}" alt="User DP" class="h-56 w-56 rounded-full"/>
+{% endblock image%} {%block details%}
+    {% if user.is_authenticated %}
+       <div  class="flex  items-center justify-end mb-5 " > 
+         
+        <a href="{% url 'portal:checkuseractivities' %}" 
+            class="bg-amber-500 text-white rounded-full px-2 py-1"> 
+            Check Activities 
+        </a> 
+    </div>
+    <div class="flex items-center mb-3 w-full">    
+    <p class="text-amber-500 text-md pr-2 w-2/5"> Email :  </p>
+    <p class="bg-gray-700 text-white w-3/5 pl-2 py-1 rounded-lg truncate">{{user.email }}</p>
+
+    </div> 
+    <div class="flex items-center mb-3 w-full">    
+    <p class="text-amber-500 text-md pr-2 w-2/5"> First Name :  </p>
+    <p class="bg-gray-700 text-white w-3/5 pl-2 py-1 rounded-lg truncate">{{user.first_name}}
+    </div> 
+    <div class="flex items-center mb-3 w-full">    
+    <p class="text-amber-500 text-md pr-2 w-2/5">  Surname :  </p>
+    <p class="bg-gray-700 text-white w-3/5 pl-2 py-1 rounded-lg truncate">{{user.last_name}}
+    </div> 
+    <div class="flex items-center mb-3 w-full">    
+    <p class="text-amber-500 text-md pr-2 w-2/5">Reg Number :  </p>
+    <p class="bg-gray-700 text-white w-3/5 pl-2 py-1 rounded-lg truncate">{{userprofile.RegNo}}
+    </div> 
+    <div class="flex items-center mb-3 w-full">    
+    <p class="text-amber-500 text-md pr-2 w-2/5 "> IP Address :  </p>
+    <p class="bg-gray-700 text-white w-3/5 pl-2 py-1 rounded-lg truncate">192.168.134.4
+    </div>
+    <div  class="flex justify-end items-center mt-2 -mb-3" > 
+         <a href="{% url 'portal:edit_profile' %}"> <p class="  text-center p-1 px-2  mr-2  rounded-lg bg-blue-500 hover:bg-blue-600 text-white"> Edit Profile</p>
+   
+        <a href="{% url 'portal:logout' %}"> <p class=" px-2 bg-red-900 text-center p-1 hover:bg-red-500 rounded-lg text-white"> Log Out</p>
+   </a> 
+    </div>
+   
+  
+    </div>
+    
+
+    {% endif%}
+</p> {% endblock details %}

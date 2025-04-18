@@ -1,0 +1,155 @@
+{% extends 'base.html' %} {% load static %} 
+
+   {% block image %}
+<div class="hidden md:block md:-ml-40 lg:-ml-0">
+  <img
+    src="{{ userprofile.display_pic.url}}"
+    alt="LOGO"
+    class="h-56 w-56 rounded-full "
+  />
+</div>
+{% endblock image %} {% block details %}
+<div class="block md:hidden -mt-5">
+  <p class="text-amber-500 capitalize text-sm text-center">
+    You can only edit your profile in Desktop view
+  </p>
+  <a href="{% url 'portal:homepage' %}" class="flex justify-center">
+    <p class="text-center text-white mt-2 bg-amber-500 w-20 p-1 rounded-lg">
+      Home
+    </p></a
+  >
+</div>
+<div class="hidden md:block md:-ml-28 lg:-ml-8">
+  <div class="flex gap-4 items-center">
+    <div class="space-y-1">
+      <label class="text-sm text-amber-500"
+        >Username/Nickname<span class="text-red-900 text-xl"
+          >**
+          <span class="text-sm"
+            >{% if Username%} {{Username}}{% endif%}</span
+          ></span
+        ></label
+      >
+      <input
+        
+        name="username"
+        type="text"
+        value="{{user.username}}"
+        class="bg-gray-700 text-white pl-2 py-1 rounded-lg outline-none focus:ring-2 focus:ring-amber-500"
+        placeholder="Matrix"
+      />
+    </div>
+    <div class="space-y-1">
+      <label class="text-sm text-amber-500"
+        >Email <span class="text-red-900 text-xl">** 
+          <span class="text-sm">{% if Email%} {{Email}}{% endif%}</span>
+        </span></label
+      >
+      <input
+        
+        name="email"
+        type="email"
+         value="{{user.email}}"
+        class="bg-gray-700 text-white pl-2 py-1 rounded-lg outline-none focus:ring-2 focus:ring-amber-500"
+        placeholder="matrixauto7@gmail.com"
+      />
+    </div>
+  </div>
+  <div class="flex gap-4 items-center">
+    <div class="space-y-1">
+      <label class="text-sm text-amber-500"
+        >First Name<span class="text-red-900 text-xl">*</span></label
+      >
+      <input
+        
+        name="firstname"
+        type="text"
+         value="{{user.first_name}}"
+        class="bg-gray-700 text-white pl-2 py-1 rounded-lg outline-none focus:ring-2 focus:ring-amber-500"
+        placeholder="Muhammad"
+      />
+    </div>
+    <div class="space-y-1">
+      <label class="text-sm text-amber-500"
+        >Last Name / Surname<span class="text-red-900 text-xl">*</span></label
+      >
+      <input
+        
+        name="lastname"
+        type="text"
+         value="{{user.last_name}}"
+        class="bg-gray-700 text-white pl-2 py-1 rounded-lg outline-none focus:ring-2 focus:ring-amber-500"
+        placeholder="Abdullah"
+      />
+    </div>
+  </div>
+  <div class="flex gap-4 items-center">
+    <div class="space-y-1">
+      <label class="text-sm text-amber-500"
+        >Registration Number<span class="text-red-900 text-xl">**
+            <span class="text-sm">{% if RegistrationNumber %} {{RegistrationNumber}}{% endif%}</span>
+        </span>
+        </span></label
+      >
+      <input
+        
+        name="registration_number"
+        type="text"
+         value="{{userprofile.RegNo}}"
+        class="bg-gray-700 text-white pl-2 py-1 rounded-lg outline-none focus:ring-2 focus:ring-amber-500"
+        placeholder="TRGC/2324/089"
+      />
+    </div>
+    <div class="space-y-1">
+      <label class="text-sm text-amber-500"
+        >Admin Password <span class="text-red-900 text-xl">*</span></label
+      >
+      <input
+        required
+        name="adminpassword"
+        type="password"
+        placeholder="*********"
+        class="bg-gray-700 text-white pl-2 py-1 rounded-lg outline-none focus:ring-2 focus:ring-amber-500"
+      />
+    </div>
+  </div>
+
+  <div class="flex gap-4 items-center">
+    <div class="space-y-1">
+      <label class="text-sm text-amber-500"
+        >Password<span class="text-red-900 text-xl">**
+           
+        </span></label
+      >
+      <input
+        
+        name="personal_password"
+        type="text"
+        
+        class="bg-gray-700 text-white pl-2 py-1 rounded-lg outline-none focus:ring-2 focus:ring-amber-500"
+       placeholder="*********"
+      />
+    </div>
+   <div class="space-y-1">
+    <label class="text-sm text-amber-500"
+      >Profile Picture <span class="text-red-900 text-xl">*</span></label
+    >
+    <input
+      
+      name="image"
+      type="file"
+      class="bg-gray-700 pl-2 py-1 rounded-lg outline-none focus:ring-2 focus:ring-amber-500 w-4/5"
+    />
+    
+  </div>
+  </div>
+ <div  class="flex justify-end items-center mt-5 -mb-5 -mr-8 " > 
+         <button class="  text-center p-1 px-2  mr-2  rounded-lg bg-blue-500 hover:bg-blue-600 text-white"> Save Changes</button>
+   
+        <a href="{% url 'portal:homepage' %}"> <p class=" px-2 bg-red-900 text-center p-1 hover:bg-red-500 rounded-lg text-white"> Undo Changes</p>
+   </a> 
+    </div>
+</div>
+
+</div>
+{% endblock details %}
